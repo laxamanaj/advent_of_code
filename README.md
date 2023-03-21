@@ -2,4 +2,4 @@
 
 https://adventofcode.com/
 
-Problem solving through coding! Let's learn together. 
+Hi! Problem solving through coding! Let's learn together. 
