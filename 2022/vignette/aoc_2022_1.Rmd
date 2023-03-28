@@ -58,22 +58,30 @@ my_data <- read.table(
     file.path("/cloud/project/raw", "aoc_2022_1_input.txt"), 
     blank.lines.skip = F) %>% 
   rename(calories=V1)
+head(my_data, n=20)
+```
 
+```{r calbyelf}
 #group the calories of food carried by each elf, labeling each elf 1, 2, 3, etc.
 calbyelf <- my_data %>% 
   mutate(elfid = cumsum(is.na(calories)) + !is.na(calories)) %>% 
   filter(!is.na(calories))
+head(calbyelf, n=20)
+```
 
+```{r sumbyelf}
 #sum calories by elfid
 sumbyelf <- calbyelf %>%
   group_by(elfid) %>%
   summarise_at(vars(calories), list(totcal = sum))
+head(sumbyelf, n=20)
+```
 
+```{r elfmax}
 #Find Elf carrying the most calories
 elfmax <- sumbyelf %>% 
   arrange(-totcal) %>% 
   filter(row_number()==1)
-
 ```
 
 ## SOLUTION
