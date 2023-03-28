@@ -49,10 +49,26 @@
 # 
 # Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?
 
+# load packages
+library("tidyr")
+library("dplyr")
+
 # read in data
+my_data <- read.table(file.path("raw", "aoc_2022_1_input.txt"), blank.lines.skip = F) %>% 
+  rename(calories=V1)
 
-my_data <- read.table(file.path("raw", "aoc_2015_1_input.txt"))
-head(my_data)
+#group the calories of food carried by each elf, labeling each elf 1, 2, 3, etc.
+calbyelf <- my_data %>% 
+  mutate(elfid = cumsum(is.na(calories)) + !is.na(calories)) %>% 
+  filter(!is.na(calories))
 
-sum(gregexpr("(", my_data, fixed=TRUE)[[1]] > 0) - sum(gregexpr(")", my_data, fixed=TRUE)[[1]] > 0)
+#sum calories by elfid
+sumbyelf <- calbyelf %>%
+  group_by(elfid) %>%
+  summarise_at(vars(calories), list(totcal = sum))
 
+#Find Elf carrying the most calories
+elfmax <- sumbyelf %>% 
+  arrange(-totcal) %>% 
+  filter(row_number()==1)
+elfmax
