@@ -36,7 +36,7 @@ To what floor do the instructions take Santa?
 # load packages
 
 my_data <- read.table(file.path("/cloud/project/raw", "aoc_2015_1_input.txt"))
-head(my_data)
+head(my_data, n=30)
 
 floor <- sum(gregexpr("(", my_data, fixed=TRUE)[[1]] > 0) - sum(gregexpr(")", my_data, fixed=TRUE)[[1]] > 0)
 
