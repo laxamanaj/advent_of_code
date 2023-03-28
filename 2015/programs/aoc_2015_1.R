@@ -32,5 +32,6 @@
 my_data <- read.table(file.path("raw", "aoc_2015_1_input.txt"))
 head(my_data)
 
+pdf(file.path("2015","output","aoc_2015_1_input.pdf"))
 sum(gregexpr("(", my_data, fixed=TRUE)[[1]] > 0) - sum(gregexpr(")", my_data, fixed=TRUE)[[1]] > 0)
-
+dev.off()

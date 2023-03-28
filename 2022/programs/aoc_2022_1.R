@@ -71,4 +71,9 @@ sumbyelf <- calbyelf %>%
 elfmax <- sumbyelf %>% 
   arrange(-totcal) %>% 
   filter(row_number()==1)
+
+#output
+pdf(file.path("2022","output","aoc_2022_1_input.pdf"))
 elfmax
+dev.off()
+
